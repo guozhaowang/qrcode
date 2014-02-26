@@ -87,7 +87,12 @@ a:hover, a:active {
 <body>
 <div id="main">
 <h1><span class="f1">QR Code</span> <span class="f2">Generator</span></h1>
+<form>
 <input id="input-text" type="text" placeholder="Enter your text here."></input>
+<input  type="radio" name="correctLevel" value="L">L
+<input  type="radio" name="correctLevel" value="M">M
+<input  type="radio" name="correctLevel" value="H">H
+</form>
 <div id="qrcode-wrapper">
 <div id="qrcode"></div>
 <div id="qrcode-data"></div>
