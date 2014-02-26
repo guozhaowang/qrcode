@@ -8,10 +8,10 @@
 <script src="qrcode.min.js"></script>
 <style type='text/css'>
 body {
-font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
-line-height: 1.4em;
-background: #eaeaea url('bg.png');
-color: #4d4d4d;
+	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 1.4em;
+	background: #eaeaea url('bg.png');
+	color: #333;
 }
 #main {
 	width: 100%;
@@ -77,10 +77,14 @@ a:hover, a:active {
 	text-decoration: underline;
 	color: #900;
 }
-
+#footerAdSenseBar {
+	width: 100%;
+	text-align:center;
+}
 </style>
 </head>
 <body>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <div id="main">
 <h1><span class="f1">QR Code</span> <span class="f2">Generator</span></h1>
 <input id="input-text" type="text" placeholder="Enter your text here."></input>
@@ -90,6 +94,13 @@ a:hover, a:active {
 </div>
 </div>
 <div id="footer">Created by <a href="http://sealmemory.blogspot.com/">海豹雜記</a> | Powered by <a href="http://davidshimjs.github.io/qrcodejs/">QRCode.js</a></div>
+<div id='footerAdSenseBar'>
+<!-- 海報雜記置底&#65288;回應式&#65289; -->
+<ins class='adsbygoogle' data-ad-client='ca-pub-7794009487786811' data-ad-format='auto' data-ad-slot='1336964931' style='display:block'/>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
 </body>
 <script>
 var qrcode;
