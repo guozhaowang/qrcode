@@ -1,0 +1,132 @@
+<!doctype html>
+<html itemscope="" itemtype="http://schema.org/WebPage">
+<head>
+<meta charset="UTF-8" />
+<title>QR Code Generator 產生器</title>
+<link href='http://fonts.googleapis.com/css?family=Lily+Script+One' rel='stylesheet' type='text/css'>
+<script src="jquery.min.js"></script>
+<script src="qrcode.min.js"></script>
+<style type='text/css'>
+body {
+	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 1.4em;
+	background: #eaeaea url('bg.png');
+	color: #333;
+}
+#main {
+	width: 100%;
+	text-align: center;
+	padding: 10px 0;
+}
+#main h1 {
+	padding: 30px 0;
+	font-weight: bold;
+	font-size: 64px;
+}
+#main .f1 {
+	color: #900;
+	font-family: 'Lily Script One', sans-serif;
+}
+#main .f2 {
+	color: #333;
+}
+#main input[type="text"]{
+	border: 1px solid #CCC;
+	color: #333;
+	height: 30px;
+	padding: 12px 12px 8px 12px;
+	width: 68%;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	font: normal 24px/24px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+	width: 500px;
+	max-width: 95%;
+}
+#qrcode-wrapper {
+	border: 1px solid #CCC;
+	padding: 24px 12px;
+	background-color: #FFFFFF;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	font: normal 24px/24px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+	width: 500px;
+	max-width: 95%;
+	text-align: center;
+	margin: 30px auto 20px;
+}
+#qrcode > img {
+	margin: auto;
+}
+#footer {
+	text-align: center;
+	color: #666;
+}
+a {
+	text-decoration: none;
+	color:#333;
+}
+a:hover, a:active {
+	text-decoration: underline;
+	color: #900;
+}
+#footerAdSenseBar {
+	margin-top: 40px;
+	width: 100%;
+	text-align:center;
+}
+</style>
+</head>
+<body>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<div id="main">
+<h1><span class="f1">QR Code</span> <span class="f2">Generator</span></h1>
+<input id="input-text" type="text" placeholder="Enter your text here."></input>
+<div id="qrcode-wrapper">
+<div id="qrcode"></div>
+<div id="qrcode-data"></div>
+</div>
+</div>
+<div id="footer">Created by <a href="http://sealmemory.blogspot.com/">海豹雜記</a> | Powered by <a href="http://davidshimjs.github.io/qrcodejs/">QRCode.js</a></div>
+<div id='footerAdSenseBar'>
+<!-- 海報雜記置底&#65288;回應式&#65289; -->
+<ins class='adsbygoogle' data-ad-client='ca-pub-7794009487786811' data-ad-format='auto' data-ad-slot='1336964931' style='display:block'/>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</body>
+<script>
+var qrcode;
+function initQrcode() {
+	qrcode = new QRCode(document.getElementById("qrcode"), {
+		width: 200,
+		height: 200,
+		colorDark : "#000000",
+		colorLight : "#ffffff",
+		correctLevel : QRCode.CorrectLevel.L
+	});
+}
+$(function() {
+	initQrcode();
+	$("#input-text").keyup(function() {
+		qrcode.clear();
+		var textData = $(this).val();
+		if (textData.length > 0) {
+			qrcode.makeCode(textData);
+		} else {
+			$("#qrcode").empty();
+			initQrcode();
+		}
+	});
+
+});
+</script>
+</html>
