@@ -8,8 +8,8 @@
 <script src="qrcode.min.js"></script>
 <style type='text/css'>
 body {
-	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	line-height: 1.4em;
+	font: 24px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 2.5em;
 	background: #eaeaea url('bg.png');
 	color: #333;
 }
@@ -19,7 +19,6 @@ body {
 	padding: 10px 0;
 }
 #main h1 {
-	padding: 30px 0;
 	font-weight: bold;
 	font-size: 64px;
 }
@@ -39,7 +38,8 @@ body {
 	border-radius: 6px;
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
-	font: normal 24px/24px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 24px;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
 	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -60,7 +60,7 @@ body {
 	width: 500px;
 	max-width: 95%;
 	text-align: center;
-	margin: 30px auto 20px;
+	margin: 0 auto;
 }
 #qrcode > img {
 	margin: auto;
@@ -68,37 +68,52 @@ body {
 #footer {
 	text-align: center;
 	color: #666;
+	font-size: 16px;
 }
 a {
 	text-decoration: none;
 	color:#333;
+	font-weight: bold;
 }
 a:hover, a:active {
 	text-decoration: underline;
 	color: #900;
 }
 #footerAdSenseBar {
-	margin-top: 40px;
+	margin: 20px auto;
 	width: 100%;
 	text-align:center;
+	max-width: 800px;
 }
 </style>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48449682-1', 'guozhaowang.github.io');
+  ga('send', 'pageview');
+
+</script>
 </head>
 <body>
 <div id="main">
 <h1><span class="f1">QR Code</span> <span class="f2">Generator</span></h1>
 <form>
 <input id="input-text" type="text" placeholder="Enter your text here."></input>
-<input  type="radio" name="correctLevel" value="L">L
-<input  type="radio" name="correctLevel" value="M">M
-<input  type="radio" name="correctLevel" value="H">H
+<div>
+Correct Level: 
+<input type="radio" name="correctLevel" value="L">L
+<input type="radio" name="correctLevel" value="M" checked>M
+<input type="radio" name="correctLevel" value="H">H
+</div>
 </form>
 <div id="qrcode-wrapper">
 <div id="qrcode"></div>
 <div id="qrcode-data"></div>
 </div>
 </div>
-<div id="footer">Created by <a href="http://sealmemory.blogspot.com/">海豹雜記</a> | Powered by <a href="http://davidshimjs.github.io/qrcodejs/">QRCode.js</a></div>
 <div id='footerAdSenseBar'>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- QRCode置底回應式 -->
@@ -111,16 +126,17 @@ a:hover, a:active {
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 </div>
+<div id="footer">Created by <a href="http://sealmemory.blogspot.com/">海豹雜記</a> | Powered by <a href="http://davidshimjs.github.io/qrcodejs/">QRCode.js</a></div>
 </body>
 <script>
-var qrcode;
+var qrcode, corrLevel = QRCode.CorrectLevel.M;
 function initQrcode() {
 	qrcode = new QRCode(document.getElementById("qrcode"), {
 		width: 200,
 		height: 200,
 		colorDark : "#000000",
 		colorLight : "#ffffff",
-		correctLevel : QRCode.CorrectLevel.L
+		correctLevel : corrLevel
 	});
 }
 $(function() {
@@ -135,7 +151,23 @@ $(function() {
 			initQrcode();
 		}
 	});
+	$("input[name=correctLevel]").change(function() {
+		var val = $(this).val();
+		if (val == "L") {
+			corrLevel = QRCode.CorrectLevel.L;
+		} else if (val == "M") {
+			corrLevel = QRCode.CorrectLevel.M;
+		} else if (val == "H") {
+			corrLevel = QRCode.CorrectLevel.H;
+		}
+		$("#qrcode").empty();
+		initQrcode();
 
+		var textData = $("#input-text").val();
+		if (textData.length > 0) {
+			qrcode.makeCode(textData);
+		}
+	});
 });
 </script>
 </html>
