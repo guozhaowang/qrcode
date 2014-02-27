@@ -102,6 +102,14 @@ a:hover, a:active {
 </script>
 </head>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_TW/all.js#xfbml=1&appId=338766312900008";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <div id="main">
 <h1><span class="f1">QR Code</span> <span class="f2">Generator</span></h1>
 <form>
@@ -131,7 +139,16 @@ Correct Level:
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 </div>
-<div id="footer">Created by <a href="http://sealmemory.blogspot.com/">海豹雜記</a> | Powered by <a href="http://davidshimjs.github.io/qrcodejs/">QRCode.js</a></div>
+<div id="footer">
+
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone"></div>
+
+<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+
+<br />
+Created by <a href="http://sealmemory.blogspot.com/">海豹雜記</a> | Powered by <a href="http://davidshimjs.github.io/qrcodejs/">QRCode.js</a>
+</div>
 </body>
 <script>
 var qrcode, corrLevel = QRCode.CorrectLevel.M;
@@ -186,4 +203,14 @@ $(function() {
 	});
 });
 </script>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/platform.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
 </html>
