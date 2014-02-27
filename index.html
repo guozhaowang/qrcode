@@ -154,13 +154,13 @@ Created by <a href="http://sealmemory.blogspot.com/">海豹雜記</a> | Powered 
 </div>
 </body>
 <script>
-var qrcode, corrLevel = QRCode.CorrectLevel.M;
+var qrcode, corrLevel = QRCode.CorrectLevel.M, qrWidth = 200, qrHeight = 200, qrColorDark = "#000000", qrColorLight = "#ffffff";
 function initQrcode() {
 	qrcode = new QRCode(document.getElementById("qrcode"), {
-		width: 200,
-		height: 200,
-		colorDark : "#000000",
-		colorLight : "#ffffff",
+		width: qrWidth,
+		height: qrHeight,
+		colorDark : qrColorDark,
+		colorLight : qrColorLight,
 		correctLevel : corrLevel
 	});
 }
