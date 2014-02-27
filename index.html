@@ -8,6 +8,7 @@
 <script src="jquery.min.js"></script>
 <script src="qrcode.js"></script>
 <link rel="stylesheet" href="jquery-ui.css" />
+<link rel="stylesheet" href="smoothness/jquery-ui-1.10.4.custom.min.css" />
 <script src="jquery-ui.min.js"></script>
 <style type='text/css'>
 body {
@@ -34,7 +35,6 @@ body {
 input[type="text"] {
 	border: 1px solid #CCC;
 	color: #333;
-	height: 30px;
 	border-radius: 6px;
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
@@ -52,7 +52,11 @@ input[type="text"] {
 }
 #qrColorpickerLight, #qrColorpickerDark {
 	width: 100px;
-	padding: 6px 6px 4px 6px;
+	padding: 8px 8px 4px 8px;
+}
+#qrSize {
+	width: 100px;
+	padding: 0;
 }
 #qrcode-wrapper {
 	border: 1px solid #CCC;
@@ -68,7 +72,7 @@ input[type="text"] {
 	width: 500px;
 	max-width: 95%;
 	text-align: center;
-	margin: 20px auto;
+	margin: 30px auto;
 }
 #qrcode > img {
 	margin: auto;
@@ -118,7 +122,6 @@ a:hover, a:active {
 }
 #options-dlg {
 	display: none;
-	line-height: 2.5em;
 }
 .no-close .ui-dialog-titlebar-close {
   display: none;
@@ -259,7 +262,9 @@ $(function() {
 		stop: function( event, ui ) {
 			qrWidth = qrHeight = qrSize.spinner("value")
 			resetQrcode();
-		}
+		},
+		min: 16,
+		max: 1024
 	});
 
 	$("#options").button().click(function( event ) {
