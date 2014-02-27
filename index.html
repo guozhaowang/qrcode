@@ -101,7 +101,7 @@ a:hover, a:active {
         -moz-border-radius: 3px;
         border-radius: 3px;
 }
-button {
+.button {
 font-size: 16px;
 }
 </style>
@@ -170,7 +170,7 @@ function initQrcode() {
 function genQrcode(t) {
 	qrcode.makeCode(t);
 	$("#qrcode-data").empty().append('<a href="' + qrcode._oDrawing._elCanvas.toDataURL()
-		+ '" download="qrcode.png"><button type="button">Download</button></a>' );
+		+ '" download="qrcode.png"><button type="button" class="button">Download</button></a>' );
 }
 function clearQrcode() {
 	qrcode.clear();
