@@ -25,8 +25,14 @@ body {
 	color: #333;
 }
 #main {
+	padding-top: 200px;
 	width: 100%;
 	text-align: center;
+
+-webkit-transition:padding .3s;
+   -moz-transition:padding .3s;
+     -o-transition:padding .3s;
+        transition:padding .3s;
 }
 #main h1 {
 	font-weight: bold;
@@ -265,6 +271,7 @@ $(function() {
 	$("#input-text").click(function() {
 		$("#qrcode-wrapper").fadeIn("slow");
 		$("#qrcode-wrapper").css("padding", "24px 12px").height(qrHeight + 50);
+		$("#main").css("padding-top","20px");
 		$(this).unbind("click");
 	});
 	
