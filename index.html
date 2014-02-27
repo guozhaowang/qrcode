@@ -7,6 +7,8 @@
 <link rel="shortcut icon" type="image/x-icon" href="favicon.png"/>
 <script src="jquery.min.js"></script>
 <script src="qrcode.js"></script>
+<link rel="stylesheet" href="jquery-ui.css" />
+<script src="jquery-ui.min.js"></script>
 <style type='text/css'>
 body {
 	font: 24px 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -28,12 +30,12 @@ body {
 #main .f2 {
 	color: #333;
 }
-#main input[type="text"]{
+
+#main input[type="text"] {
 	border: 1px solid #CCC;
 	color: #333;
 	height: 30px;
 	padding: 12px 12px 8px 12px;
-	width: 68%;
 	border-radius: 6px;
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
@@ -42,8 +44,13 @@ body {
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
 	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+#input-text {
 	width: 500px;
 	max-width: 95%;
+}
+#qrColorpickerLight, #qrColorpickerDark {
+	width: 100px;
 }
 #qrcode-wrapper {
 	border: 1px solid #CCC;
@@ -102,7 +109,11 @@ a:hover, a:active {
         border-radius: 3px;
 }
 .button {
-font-size: 16px;
+	font-size: 16px;
+}
+#corrLevelRadio label {
+	font-size: 14px;
+	font-weight: bold;
 }
 </style>
 <script>
@@ -125,12 +136,16 @@ font-size: 16px;
 <h1><span class="f1">QR Code</span> <span class="f2">Generator</span></h1>
 <form>
 <input id="input-text" type="text" placeholder="Enter your text here."></input>
-<div style="padding: 15px;">
-Correct Level: 
-<input type="radio" name="correctLevel" value="L">L
-<input type="radio" name="correctLevel" value="M" checked>M
-<input type="radio" name="correctLevel" value="Q">Q
-<input type="radio" name="correctLevel" value="H">H
+<div id="corrLevelRadio" style="margin: 10px;">
+Correct Level:
+<input type="radio" id="corrLevelRadioL" name="correctLevel" value="L"><label for="corrLevelRadioL">L</label>
+<input type="radio" id="corrLevelRadioM" name="correctLevel" value="M"  checked="checked"><label for="corrLevelRadioM">M</label>
+<input type="radio" id="corrLevelRadioQ" name="correctLevel" value="Q"><label for="corrLevelRadioQ">Q</label>
+<input type="radio" id="corrLevelRadioH" name="correctLevel" value="H"><label for="corrLevelRadioH">H</label>
+</div>
+<div>
+Light Color: <input type="text" id="qrColorpickerLight" value="ffffff">
+Dark Color: <input type="text" id="qrColorpickerDark" value="000000">
 </div>
 </form>
 <div id="qrcode-wrapper">
@@ -176,6 +191,15 @@ function clearQrcode() {
 	qrcode.clear();
 	$("#qrcode-data").empty();
 }
+function resetQrcode() {
+	$("#qrcode").empty();
+	initQrcode();
+
+	var textData = $("#input-text").val();
+	if (textData.length > 0) {
+		genQrcode(textData);
+	}
+}
 $(function() {
 	initQrcode();
 	$("#input-text").keyup(function() {
@@ -199,14 +223,24 @@ $(function() {
 		} else if (val == "H") {
 			corrLevel = QRCode.CorrectLevel.H;
 		}
-		$("#qrcode").empty();
-		initQrcode();
 
-		var textData = $("#input-text").val();
-		if (textData.length > 0) {
-			genQrcode(textData);
-		}
+		resetQrcode();
 	});
+	$("#qrColorpickerLight").keyup(function() {
+		qrColorLight = $(this).val();
+		if(qrColorLight[0] != "#") {
+			qrColorLight = "#" + qrColorLight;
+		}
+		resetQrcode();
+	});
+	$("#qrColorpickerDark").keyup(function() {
+		qrColorDark = $(this).val();
+		if(qrColorDark[1] != "#") {
+			qrColorDark = "#" + qrColorDark;
+		}
+		resetQrcode();
+	});
+	$( "#corrLevelRadio" ).buttonset();
 });
 </script>
 
