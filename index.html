@@ -66,7 +66,6 @@ input[type="text"] {
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
 	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
 	width: 500px;
-	height: 250px;
 	max-width: 95%;
 	text-align: center;
 	margin: 20px auto;
@@ -156,8 +155,9 @@ Correct Level:
 <input type="radio" id="corrLevelRadioQ" name="correctLevel" value="Q"><label for="corrLevelRadioQ">Q</label>
 <input type="radio" id="corrLevelRadioH" name="correctLevel" value="H"><label for="corrLevelRadioH">H</label>
 </div>
-Light Color: <input type="text" id="qrColorpickerLight" value="ffffff"><br />
-Dark Color: <input type="text" id="qrColorpickerDark" value="000000">
+<p>Light Color: <input type="text" id="qrColorpickerLight" value="ffffff"></p>
+<p>Dark Color: <input type="text" id="qrColorpickerDark" value="000000"></p>
+<p><label for="qrSize">Size: </label><input id="qrSize" name="qrSize" value="200"></p>
 </form>
 </div>
 
@@ -254,6 +254,14 @@ $(function() {
 		resetQrcode();
 	});
 	$( "#corrLevelRadio" ).buttonset();
+
+	var qrSize = $( "#qrSize" ).spinner({
+		stop: function( event, ui ) {
+			qrWidth = qrHeight = qrSize.spinner("value")
+			resetQrcode();
+		}
+	});
+
 	$("#options").button().click(function( event ) {
 		$( "#options-dlg" ).dialog({
 			modal: true,
