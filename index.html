@@ -68,7 +68,6 @@ input[type="text"] {
 }
 #qrcode-wrapper {
 	border: 1px solid #CCC;
-	padding: 24px 12px;
 	background-color: #EEE;
 	border-radius: 6px;
 	-webkit-border-radius: 6px;
@@ -81,8 +80,17 @@ input[type="text"] {
 	max-width: 95%;
 	text-align: center;
 	margin: 30px auto;
+
+-webkit-transition:all .3s;
+   -moz-transition:all .3s;
+     -o-transition:all .3s;
+        transition:all .3s;
+
+	padding: 0;
 	display: none;
+	height: 0;
 }
+
 #qrcode > img {
 	margin: auto;
 }
@@ -256,7 +264,8 @@ $(function() {
 	
 	$("#input-text").click(function() {
 		$("#qrcode-wrapper").fadeIn("slow");
-		
+		$("#qrcode-wrapper").css("padding", "24px 12px").height(qrHeight + 50);
+		$(this).unbind("click");
 	});
 	
 	$("#input-text").keyup(onInputTextChanged);
@@ -284,6 +293,7 @@ $(function() {
 	var qrSize = $( "#qrSize" ).spinner({
 		stop: function( event, ui ) {
 			qrWidth = qrHeight = qrSize.spinner("value")
+			$("#qrcode-wrapper").height(qrHeight + 50);
 			resetQrcode();
 		},
 		min: 16,
