@@ -216,18 +216,34 @@ function resetQrcode() {
 		genQrcode(textData);
 	}
 }
+function onInputTextChanged() {
+	clearQrcode();
+	var textData = $(this).val();
+	if (textData.length > 0) {
+		genQrcode(textData);
+	} else {
+		$("#qrcode").empty();
+		initQrcode();
+	}
+}
+function onLightColorChanged() {
+	qrColorLight = $(this).val();
+	if(qrColorLight[0] != "#") {
+		qrColorLight = "#" + qrColorLight;
+	}
+	resetQrcode();
+}
+function onDarkColorChanged() {
+	qrColorDark = $(this).val();
+	if(qrColorDark[0] != "#") {
+		qrColorDark = "#" + qrColorDark;
+	}
+	resetQrcode();
+}
 $(function() {
 	initQrcode();
-	$("#input-text").keyup(function() {
-		clearQrcode();
-		var textData = $(this).val();
-		if (textData.length > 0) {
-			genQrcode(textData);
-		} else {
-			$("#qrcode").empty();
-			initQrcode();
-		}
-	});
+	$("#input-text").keyup(onInputTextChanged);
+	$("#input-text").change(onInputTextChanged);
 	$("input[name=correctLevel]").change(function() {
 		var val = $(this).val();
 		if (val == "L") {
@@ -242,20 +258,10 @@ $(function() {
 
 		resetQrcode();
 	});
-	$("#qrColorpickerLight").keyup(function() {
-		qrColorLight = $(this).val();
-		if(qrColorLight[0] != "#") {
-			qrColorLight = "#" + qrColorLight;
-		}
-		resetQrcode();
-	});
-	$("#qrColorpickerDark").keyup(function() {
-		qrColorDark = $(this).val();
-		if(qrColorDark[1] != "#") {
-			qrColorDark = "#" + qrColorDark;
-		}
-		resetQrcode();
-	});
+	$("#qrColorpickerLight").keyup(onLightColorChanged);
+	$("#qrColorpickerLight").change(onLightColorChanged);
+	$("#qrColorpickerDark").keyup(onDarkColorChanged);
+	$("#qrColorpickerDark").change(onDarkColorChanged);
 	$( "#corrLevelRadio" ).buttonset();
 
 	var qrSize = $( "#qrSize" ).spinner({
