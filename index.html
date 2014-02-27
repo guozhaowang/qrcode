@@ -31,7 +31,7 @@ body {
 	color: #333;
 }
 
-#main input[type="text"] {
+input[type="text"] {
 	border: 1px solid #CCC;
 	color: #333;
 	height: 30px;
@@ -47,7 +47,8 @@ body {
 #input-text {
 	width: 500px;
 	max-width: 95%;
-	padding: 12px 12px 8px 12px;
+	padding: .5em .8em;
+	margin-right: 10px;
 }
 #qrColorpickerLight, #qrColorpickerDark {
 	width: 100px;
@@ -68,7 +69,7 @@ body {
 	height: 250px;
 	max-width: 95%;
 	text-align: center;
-	margin: 0 auto;
+	margin: 20px auto;
 }
 #qrcode > img {
 	margin: auto;
@@ -109,12 +110,19 @@ a:hover, a:active {
         -moz-border-radius: 3px;
         border-radius: 3px;
 }
-.button {
-	font-size: 16px;
+.dl-button {
+	font-size: 18px;
 }
 #corrLevelRadio label {
 	font-size: 14px;
 	font-weight: bold;
+}
+#options-dlg {
+	display: none;
+	line-height: 2.5em;
+}
+.no-close .ui-dialog-titlebar-close {
+  display: none;
 }
 </style>
 <script>
@@ -136,19 +144,23 @@ a:hover, a:active {
 <div id="main">
 <h1><span class="f1">QR Code</span> <span class="f2">Generator</span></h1>
 <form>
-<input id="input-text" type="text" placeholder="Enter your text here."></input>
-<div id="corrLevelRadio" style="margin: 10px;">
+<input id="input-text" type="text" placeholder="Enter your text here."></input><button id="options">Options</button>
+</form>
+
+<div id="options-dlg" title="Options">
+<form>
+<div id="corrLevelRadio">
 Correct Level:
 <input type="radio" id="corrLevelRadioL" name="correctLevel" value="L"><label for="corrLevelRadioL">L</label>
 <input type="radio" id="corrLevelRadioM" name="correctLevel" value="M"  checked="checked"><label for="corrLevelRadioM">M</label>
 <input type="radio" id="corrLevelRadioQ" name="correctLevel" value="Q"><label for="corrLevelRadioQ">Q</label>
 <input type="radio" id="corrLevelRadioH" name="correctLevel" value="H"><label for="corrLevelRadioH">H</label>
 </div>
-<div style="margin: 15px">
-Light Color: <input type="text" id="qrColorpickerLight" value="ffffff">
+Light Color: <input type="text" id="qrColorpickerLight" value="ffffff"><br />
 Dark Color: <input type="text" id="qrColorpickerDark" value="000000">
-</div>
 </form>
+</div>
+
 <div id="qrcode-wrapper">
 <div id="qrcode"></div>
 <div id="qrcode-data"></div>
@@ -186,7 +198,7 @@ function initQrcode() {
 function genQrcode(t) {
 	qrcode.makeCode(t);
 	$("#qrcode-data").empty().append('<a href="' + qrcode._oDrawing._elCanvas.toDataURL()
-		+ '" download="qrcode.png"><button type="button" class="button">Download</button></a>' );
+		+ '" download="qrcode.png"><button type="button" class="dl-button">Download</button></a>' );
 }
 function clearQrcode() {
 	qrcode.clear();
@@ -242,16 +254,30 @@ $(function() {
 		resetQrcode();
 	});
 	$( "#corrLevelRadio" ).buttonset();
+	$("#options").button().click(function( event ) {
+		$( "#options-dlg" ).dialog({
+			modal: true,
+			minWidth: 430,
+			dialogClass: "no-close",
+			buttons: {
+				Ok: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+        	event.preventDefault();
+	});
+
 });
 </script>
 
 <!-- Place this tag after the last +1 button tag. -->
 <script type="text/javascript">
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/platform.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
+(function() {
+ var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+ po.src = 'https://apis.google.com/js/platform.js';
+ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+ })();
 </script>
 
 </html>
